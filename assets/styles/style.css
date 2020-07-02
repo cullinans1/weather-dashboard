@@ -1,0 +1,28 @@
+/* html {
+    background-color: var(--color1);
+} */
+:root {
+    --color1: #121212;
+    --color2: rgb(35, 32, 209);
+    --color3: rgb(255,255,255);
+    --color4: rgb(90, 90, 90);
+    --color5: rgb(46, 46, 46);
+}
+/* main {
+    background-color: var(--color1);
+} */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+.container {
+    padding-top: 15px;
+}
+#searchBtn:hover {
+    transition: all .3s ease-in-out;
+    background-color: var(--color4);
+    border-color: var(--color4);
+}
