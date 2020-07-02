@@ -3,10 +3,10 @@
 } */
 :root {
     --color1: #121212;
-    --color2: rgb(35, 32, 209);
+    --color2: rgb(0, 123, 255);
     --color3: rgb(255,255,255);
-    --color4: rgb(90, 90, 90);
-    --color5: rgb(46, 46, 46);
+    --color4: rgba(90, 90, 90, .5);
+    --color5: rgb(90, 90, 90);
 }
 /* main {
     background-color: var(--color1);
@@ -23,9 +23,30 @@ body {
 }
 #searchBtn:hover {
     transition: all .3s ease-in-out;
-    background-color: var(--color4);
-    border-color: var(--color4);
+    background-color: var(--color5);
+    border-color: var(--color5);
 }
 #title {
     width: 100%;
+}
+#featured-city {
+    margin: 0;
+    padding: 0 1.5vw;
+}
+.weather-conditions {
+    list-style: none;
+    line-height: 3.5;
+}
+/* .city-title {
+    background-color: var(--color4);
+    border-radius: 5px;
+} */
+#forecast {
+    padding-top: 20px;
+}
+.orange {
+    background-color: orange;
+}
+.purple {
+    background-color: violet;
 }
