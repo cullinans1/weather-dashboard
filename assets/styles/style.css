@@ -26,3 +26,6 @@ body {
     background-color: var(--color4);
     border-color: var(--color4);
 }
+#title {
+    width: 100%;
+}
