@@ -1,4 +1,4 @@
-var mainSearchEl = document.getElementById("city-name");
+var featuredCityEl = document.getElementById("featured-city");
 var cityInfoEl = document.getElementById("city-info");
 var citySearchEl = document.getElementById("city-search")
 var searchBarEl = document.getElementById("search-bar");
@@ -21,7 +21,8 @@ var getCityInfo = function(city, state) {
     .then(function(response){
         if (response.ok) {
             response.json().then(function(data) {
-            console.log(data, data.name, data.main.temp, data.main.humidity);
+            displayCityInfo(data, data.name, data.weather[0].icon);
+            console.log(data, data.name, data.weather[0].icon);
             });
         } else {
             alert("Error: City " + response.statusText + "! Remember to enter the city name correctly. For a more specific result enter the city and state separated by a comma.");
@@ -31,4 +32,13 @@ var getCityInfo = function(city, state) {
         alert("Unable to connect to OpenWeather :(");
     });
 }
+var displayCityInfo = function(data, cityName, weatherIcon) {
+    //clear out any old content
+    cityInfoEl.textContent = "";
+    featuredCityEl.textContent = cityName + " ( " + currentTime + " )";
+    var weather = document.createElement("img")
+    weather.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png");
+    featuredCityEl.appendChild(weather);
+}
+var currentTime = moment().format("MMMM Do, YYYY");
 searchBarEl.addEventListener("submit", searchCityHandler);
