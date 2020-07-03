@@ -2,6 +2,7 @@ var featuredCityEl = document.getElementById("featured-city");
 var cityInfoEl = document.getElementById("city-info");
 var citySearchEl = document.getElementById("city-search")
 var searchBarEl = document.getElementById("search-bar");
+var forecastCardsEl = document.getElementById("forecast-cards");
 
 
 var searchCityHandler = function(event) {
@@ -22,7 +23,7 @@ var getCityInfo = function(city, state) {
         if (response.ok) {
             response.json().then(function(data) {
             displayCityInfo(data, data.name, data.weather[0].icon);
-            //getUV(data.coord.lat, data.coord.lon);
+            getForecast(data.coord.lat, data.coord.lon);
             });
         } else {
             alert("Error: City " + response.statusText + "! Remember to enter the city name correctly. For a more specific result enter the city and state separated by a comma.");
@@ -80,13 +81,13 @@ var displayCityInfo = function(conditions, cityName, weatherIcon) {
         if(uv <= 2) {
             uvValue.classList = "badge badge-pill badge-success";
         }
-        else if (uv <= 5 && uv >= 3) {
+        else if (uv <= 5 && uv > 2) {
             uvValue.classList = "badge badge-pill badge-warning";
         }
-        else if (uv <= 7 && uv >= 6) {
+        else if (uv <= 7 && uv > 5) {
             uvValue.classList = "badge badge-pill orange";
         }
-        else if (uv <= 10 && uv >= 8) {
+        else if (uv <= 10.9 && uv > 7) {
             uvValue.classList = "badge badge-pill badge-danger"
         }
         else if (uv >= 11) {
@@ -98,5 +99,58 @@ var displayCityInfo = function(conditions, cityName, weatherIcon) {
     //append all info to the main div
     cityInfoEl.appendChild(currentConditions);
 };
+var getForecast = function(lat, lon) {
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly&units=imperial&appid=7b788606d2ca3b8dec8a6e5ab63f1a3c")
+    .then(function(response) {
+        response.json().then(function(data) {
+            console.log(data);
+            displayForecast(data);
+        });
+    });
+}
+var displayForecast = function(data) {
+    //clear out any previous forecasts
+    forecastCardsEl.textContent = ""
+    //loop over forecasts up to five days
+    for (var i = 1; i < data.daily.length-2; i++) {
+        var cardDeck = document.createElement("div");
+        cardDeck.classList = "card text-white text-center bg-primary mb-3"
+
+        var dayStamps = document.createElement("div");
+        dayStamps.classList = "card-body";
+        var timeStamp = document.createElement("h4");
+        timeStamp.classList = "card-title";
+        timeStamp.textContent = moment.unix(data.daily[i].dt).format("MM/DD");
+        //append date to top of card
+        dayStamps.appendChild(timeStamp);
+        //var for forecast icon 
+        var weather = document.createElement("img")
+        weather.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png");
+        dayStamps.appendChild(weather);
+        //append to carddeck
+        //var for temperature
+        var hiTemp = document.createElement("p"); 
+        hiTemp.classList = "high-temp";
+        hiTemp.textContent = Math.floor(data.daily[i].temp.max) + " °F";
+        //append to card
+        dayStamps.appendChild(hiTemp);
+        //var for low temperature
+        var loTemp = document.createElement("p");
+        loTemp.classList = "low-temp";
+        loTemp.textContent = Math.floor(data.daily[i].temp.min) + " °F";
+        //append to card
+        dayStamps.appendChild(loTemp);
+        //var for humidity 
+        var humidity = document.createElement("p");
+        humidity.classList = "humidity"
+        humidity.textContent = "Humidity: " + data.daily[i].humidity + "%";
+        //append to card
+        dayStamps.appendChild(humidity);
+        cardDeck.appendChild(dayStamps);
+        //append cards to div
+        forecastCardsEl.appendChild(cardDeck);
+    }
+}
+
 var currentTime = moment().format("MMMM Do, YYYY");
 searchBarEl.addEventListener("submit", searchCityHandler);

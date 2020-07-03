@@ -50,3 +50,16 @@ body {
 .purple {
     background-color: violet;
 }
+.high-temp {
+    font-size: 1.5vw;
+    margin-bottom: 0px;
+}
+.low-temp {
+    font-size: 1.3vw;
+    color: var(--color5);
+    margin-bottom: 5px;
+}
+.humidity {
+    margin-bottom: 0px;
+    font-size: 1vw;
+}
