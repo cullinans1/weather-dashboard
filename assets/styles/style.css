@@ -36,10 +36,6 @@ body {
     list-style: none;
     line-height: 3.5;
 }
-/* .city-title {
-    background-color: var(--color4);
-    border-radius: 5px;
-} */
 #forecast {
     padding-top: 20px;
 }
@@ -64,4 +60,11 @@ body {
 }
 .card-body {
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+#list-of-cities {
+    margin-top: 15px;
+}
+.city-card {
+    width: 75%;
+    margin-top: 5px;
 }
