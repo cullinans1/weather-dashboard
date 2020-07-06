@@ -13,6 +13,6 @@
 * Past searches will show on the left side allowing you to see what you've searched previously.
     * (Could not get any but just the first location to reappear)
 
-## Sreenshots of the website: 
-![](assets/screenshots/ss1)
-![](/assets/screenshots/ss2)
+## Sreenshots of live application: 
+![](/assets/screenshots/ss1.png)
+![](/assets/screenshots/ss2.png)
