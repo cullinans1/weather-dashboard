@@ -5,13 +5,7 @@ var searchBarEl = document.getElementById("search-bar");
 var forecastCardsEl = document.getElementById("forecast-cards");
 var previousCitiesEl = document.getElementById("list-of-cities");
 var cityArr = [];
-
-
-
-
-
-
-
+var cityNum = 0;
 
 
 var searchCityHandler = function(event) {
@@ -46,7 +40,8 @@ var getCityInfo = function(city, state) {
 var displayCityInfo = function(conditions, cityName, weatherIcon) {
     cityArr.push(conditions.name)
     localStorage.setItem("cities", JSON.stringify(cityArr));
-    console.log(cityArr);
+    sideCityEl(cityName);
+    citySelectorEl();
     //clear out any old content
     cityInfoEl.textContent = "";
     featuredCityEl.textContent = cityName + " ( " + currentTime + " )";
@@ -162,43 +157,42 @@ var displayForecast = function(data) {
         forecastCardsEl.appendChild(cardDeck);
     }
 }
-var cityDisplay = function (i) {
-    
-   
+var sideCityEl = function(text) {
+    var cityList = document.createElement("div");
+        cityList.classList = "card city-card";
+        //create card body
+        var cityListEl = document.createElement("button");
+        cityListEl.classList = "cityButton card-body btn btn-primary";
+        cityListEl.setAttribute("type", "button");
+        cityListEl.setAttribute("id", "cityBtn");
+        cityListEl.setAttribute('id', cityNum);
+        cityListEl.textContent = (text);
+        cityList.appendChild(cityListEl);
+        //append all to div to display
+        previousCitiesEl.appendChild(cityList);
+        cityNum++;
+}
+var loadCities = function(){
+    var storedCities = JSON.parse(localStorage.getItem("cities"));
+    if (storedCities === null) {
+        storedCities = [];
+        return false;
+    };
+    for(var i = 0; i < storedCities.length; i++) {
+        sideCityEl(storedCities[i]);
+        citySelectorEl();
+    }
+}
+var citySelectorEl = function() {
+    document.querySelectorAll('.cityButton').forEach(item => {
+        item.addEventListener('click', function() {
+            var cityButton = document.querySelector(".cityButton");
+            getCityInfo(cityButton.innerHTML);
+
+        })
+      })
 }
 
-var storedCities = JSON.parse(localStorage.getItem("cities"));
-console.log(storedCities);
-var showStoredCities = function() {
-    if (storedCities > 6)  {
-        localStorage.removeItem([0]);
-    } else {
-        for(var i = 0; i < storedCities.length; i++) {
-            var cityList = document.createElement("div");
-            cityList.classList = "card city-card";
-            //create card body
-            var cityListEl = document.createElement("button");
-            cityListEl.classList = "cityButton card-body btn btn-primary";
-            cityListEl.setAttribute("type", "button");
-            cityListEl.setAttribute("id", "cityBtn");
-            cityListEl.textContent = storedCities[i];
-            cityList.appendChild(cityListEl);
-            //append all to div to display
-            previousCitiesEl.appendChild(cityList);
-            document.querySelectorAll('.cityButton').forEach(item => {
-                item.addEventListener('click', function() {
-                    console.log(storedCities[1]);
-                })
-              })
-        }
-       
-        // var cityListEl = document.getElementById('cityBtn');
-        // cityListEl.addEventListener("click", function(){
-        //     console.log(storedCities)
-        //     //getCityInfo(text);
-        // });
-    }
-};
-showStoredCities();
+loadCities();
 var currentTime = moment().format("MMMM Do, YYYY");
 searchBarEl.addEventListener("submit", searchCityHandler);
