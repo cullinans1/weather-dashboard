@@ -180,8 +180,8 @@ var loadCities = function(){
     };
     for(var i = 0; i < storedCities.length; i++) {
         sideCityEl(storedCities[i]);
-        citySelectorEl();
     }
+    citySelectorEl();
 }
 var citySelectorEl = function() {
     document.querySelectorAll('.cityButton').forEach(item => {
