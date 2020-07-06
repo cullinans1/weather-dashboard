@@ -1,5 +1,8 @@
 # Weather-dashboard
 
+## Application is live at: 
+ https://cullinans1.github.io/weather-dashboard/
+
 * This weather dashboard will display the current weather conditions for a city that you search. You can either search just by city name or include the State as well to ensure it is the correct city. 
 
 * Current temperature, humidity, wind speed, and UV index are displayed. 
@@ -11,5 +14,5 @@
     * (Could not get any but just the first location to reappear)
 
 ## Sreenshots of the website: 
-![Screenshot](/assets/screenshots/ss1)
-![Screenshot](/assets/screenshots/ss2)
+![](assets/screenshots/ss1)
+![](/assets/screenshots/ss2)
